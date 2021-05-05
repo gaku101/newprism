@@ -33,7 +33,7 @@ model Bundle {
 
 model User {
   id            String         @id
-  autj0         String         @unique
+  auth0         String         @unique
   nickname      String?
   picture       String?
   feeds         Feed[]         @relation("FeedAuthor")

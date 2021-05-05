@@ -2,19 +2,14 @@ import { initAuth0 } from "@auth0/nextjs-auth0";
 
 import getConfig from "next/config";
 const { serverRuntimeConfig } = getConfig();
-const { auth, cookieSecret } = serverRuntimeConfig;
+const { auth } = serverRuntimeConfig;
 
 export default initAuth0({
   ...auth,
+  clockTolerance: 60,
+  httpTimeout: 5000,
   session: {
-    cookieSecret,
-    cookieLifetime: 60 * 60 * 8,
-    storeIdToken: false,
-    storeAccessToken: false,
-    storeRefreshToken: false,
-  },
-  oldClient: {
-    httpTimeout: 2500,
-    clockTolerance: 10000,
+    rollingDuration: 60 * 60 * 24,
+    absoluteDuration: 60 * 60 * 24 * 7,
   },
 });

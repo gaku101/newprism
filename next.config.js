@@ -6,7 +6,7 @@ const {
   AUTH0_DOMAIN,
   AUTH0_CLIENT_SECRET,
   AUTH0_SCOPE,
-  AUTH0_COOKIE,
+  AUTH0_SECRET,
   BACKEND_ADDRESS,
 } = process.env;
 
@@ -16,13 +16,18 @@ module.exports = {
   },
   serverRuntimeConfig: {
     auth: {
-      domain: AUTH0_DOMAIN,
-      clientId: AUTH0_CLIENTID,
+      baseURL: BACKEND_ADDRESS,
+      issuerBaseURL: `https://${AUTH0_DOMAIN}`,
+      secret: AUTH0_SECRET,
+      clientID: AUTH0_CLIENTID,
       clientSecret: AUTH0_CLIENT_SECRET,
-      scope: AUTH0_SCOPE,
-      redirectUri: `${BACKEND_ADDRESS}/api/callback`,
-      postLogoutRedirectUri: `${BACKEND_ADDRESS}/`,
+      routes: {
+        callback: "/api/callback",
+        postLogoutRedirect: "/",
+      },
+      authorizationParams: {
+        scope: AUTH0_SCOPE,
+      },
     },
-    cookieSecret: AUTH0_COOKIE,
   },
 };
