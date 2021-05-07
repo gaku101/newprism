@@ -6,12 +6,16 @@ export const typeDefs = gql`
     name: String
     url: String
     author: User
+    tags: [FeedTag]
+    bundles: [Bundle]
   }
   type Bundle {
     id: String
     name: String
     description: String
     author: User
+    tags: [BundleTag]
+    feeds: [Feed]
   }
   type User {
     id: String
@@ -20,6 +24,16 @@ export const typeDefs = gql`
     picture: String
     bundles: [Bundle]
     feeds: [Feed]
+  }
+  type FeedTag {
+    id: String
+    name: String
+    feeds: [Feed]
+  }
+  type BundleTag {
+    id: String
+    name: String
+    bundles: [Bundle]
   }
   input FeedInput {
     id: String
@@ -31,11 +45,46 @@ export const typeDefs = gql`
     id: String
     url: String
     name: String
+    tags: NestedFeedTagCreateInput
+  }
+  input NestedFeedTagCreateInput {
+    create: [FeedTagCreateInput]
+    connect: [FeedTagWhereUniqueINput]
+  }
+  input FeedTagCreateInput {
+    id: String
+    name: String
+  }
+  input FeedTagWhereUniqueINput {
+    id: String
+    name: String
   }
   input BundleCreateInput {
     id: String
     name: String
     description: String
+    tags: NestedBundleTagCreateInput
+    feeds: NestedBundleFeedCreateInput
+  }
+  input NestedBundleTagCreateInput {
+    create: [BundleTagCreateInput]
+    connect: [BundleTagWhereUniqueInput]
+  }
+  input BundleTagCreateInput {
+    id: String
+    name: String
+  }
+  input BundleTagWhereUniqueInput {
+    id: String
+    name: String
+  }
+  input NestedBundleFeedCreateInput {
+    create: [FeedCreateInput]
+    connect: [FeedWhereUniqueInput]
+  }
+  input FeedWhereUniqueInput {
+    id: String
+    url: String
   }
   type Query {
     hello: String
