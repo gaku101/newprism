@@ -17,6 +17,7 @@ model Feed {
   author        User?          @relation("FeedAuthor", fields: [authorId], references: [id])
   authorId      String?
   savedArticles SavedArticle[]
+  bundles       Bundle[]
   tags          FeedTag[]
   likes         User[]         @relation("FeedUserLikes")
 }
@@ -24,10 +25,11 @@ model Feed {
 model Bundle {
   id          String      @id
   name        String
-  description String
+  description String      @default("")
   author      User?       @relation("BundleAuthor", fields: [authorId], references: [id])
   authorId    String?
   tags        BundleTag[]
+  feeds       Feed[]
   likes       User[]      @relation("BundleUserLikes")
 }
 
@@ -36,20 +38,22 @@ model User {
   auth0         String         @unique
   nickname      String?
   picture       String?
-  feeds         Feed[]         @relation("FeedAuthor")
   bundles       Bundle[]       @relation("BundleAuthor")
-  feedLikes     Feed[]         @relation("FeedUserLikes")
+  feeds         Feed[]         @relation("FeedAuthor")
   bundleLikes   Bundle[]       @relation("BundleUserLikes")
+  feedLikes     Feed[]         @relation("FeedUserLikes")
   savedArticles SavedArticle[]
 }
 
 model SavedArticle {
-  id       String  @id
-  name     String  @unique
+  id       String  @id 
+  content  Json
   feed     Feed?   @relation(fields: [feedId], references: [id])
   feedId   String?
-  author User? @relation(fields: [authorId], references:[id])
+  author   User?   @relation(fields: [authorId], references: [id])
   authorId String?
+  url String
+  @@index([authorId, url])
 }
 
 model BundleTag {
@@ -59,7 +63,7 @@ model BundleTag {
 }
 
 model FeedTag {
-  id   String @id
-  name String @unique
-  feed Feed[]
+  id    String @id
+  name  String @unique
+  feeds Feed[]
 }
