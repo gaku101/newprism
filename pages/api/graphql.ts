@@ -1,4 +1,4 @@
-import { makeExecutableSchema } from "@graphql-tools/schema";
+import { makeExecutableSchema } from "graphql-tools";
 import { ApolloServer } from "apollo-server-micro";
 import { applyMiddleware } from "graphql-middleware";
 import Cors from "micro-cors";
