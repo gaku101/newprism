@@ -28,6 +28,16 @@ export const resolvers = {
   BundleTag: {
     ...createFieldResolver("bundleTag", "bundles"),
   },
+  SavedArticle: {
+    ...createFieldResolver("savedArticle", "author"),
+    ...createFieldResolver("savedArticle", "feed"),
+  },
+  User: {
+    ...createFieldResolver("user", "bundles"),
+    ...createFieldResolver("user", "feeds"),
+    ...createFieldResolver("user", "feedLikes"),
+    ...createFieldResolver("user", "bundleLikes"),
+  },
   Query: {
     hello: (parent, args, context) => "hi!",
     feed: (parent, { data: { id } }, { prisma }) =>
@@ -48,6 +58,22 @@ export const resolvers = {
       prisma.feed.findMany({
         where: { name: { contains: data.search, mode: "insensitive" } },
       }),
+    savedArticle: async (
+      parent,
+      { data: { url } },
+      { prisma, user: { id: authorId } }
+    ) => {
+      const savedArticles = await prisma.savedArticle.findMany({
+        where: { url, authorId },
+      });
+      return savedArticles[0];
+    },
+    savedArticles: (parent, args, { prisma, user: { id: authorId } }) =>
+      prisma.savedArticle.findMany({
+        where: { authorId: authorId ? authorId : null },
+      }),
+    me: (parent, args, { prisma, user: { id } }) =>
+      prisma.user.findUnique({ where: { id } }),
   },
   Mutation: {
     createFeed: async (parent, { data }, { prisma, user }) => {
@@ -87,7 +113,7 @@ export const resolvers = {
         where: { id },
         include: { author: true },
       });
-      await verifyOwnership(feed, user)
+      await verifyOwnership(feed, user);
       return prisma.feed.update({ where: { id }, data: { ...feedUpdate } });
     },
     updateBundle: async (
@@ -99,8 +125,12 @@ export const resolvers = {
         where: { id },
         include: { author: true },
       });
-      await verifyOwnership(bundle, user)
+      await verifyOwnership(bundle, user);
       return prisma.bundle.update({ where: { id }, data: { ...bundleUpdate } });
+    },
+    createSavedArticle: async (parent, { data }, { prisma, user }) => {
+      const author = { author: { connect: { id: user.id } } };
+      return prisma.savedArticle.create({ data: { ...data, ...author } });
     },
   },
 };

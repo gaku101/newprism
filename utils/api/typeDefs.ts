@@ -9,6 +9,7 @@ export const typeDefs = gql`
     tags: [FeedTag]
     bundles: [Bundle]
     likes: [User]
+    savedArticles: [SavedArticle]
   }
   type Bundle {
     id: String
@@ -135,6 +136,27 @@ export const typeDefs = gql`
     connect: [FeedWhereUniqueInput]
     disconnect: [FeedWhereUniqueInput]
   }
+  scalar JSON
+
+  type SavedArticle {
+    id: String
+    author: User
+    url: String
+    content: JSON
+    feed: Feed
+  }
+  input SavedArticleInput {
+    url: String
+  }
+  input SavedArticleCreateInput {
+    id: String
+    feed: NestedFeedCreateInput
+    content: JSON
+    url: String
+  }
+  input NestedFeedCreateInput {
+    connect: FeedWhereUniqueInput
+  }
   type Query {
     hello: String
     feed(data: FeedInput): Feed
@@ -144,6 +166,9 @@ export const typeDefs = gql`
     findFeedTags(data: FindFeedTagsInput): [FeedTag]
     findBundleTags(data: FindBundleTagsInput): [BundleTag]
     findFeeds(data: FindFeedsInput): [Feed]
+    savedArticle(data: SavedArticleInput): SavedArticle
+    savedArticles: [SavedArticle]
+    me: User
   }
   type Mutation {
     createFeed(data: FeedCreateInput): Feed
@@ -151,6 +176,7 @@ export const typeDefs = gql`
     likeBundle(data: likeBundleInput): Bundle
     likeFeed(data: likeFeedInput): Feed
     updateBundle(data: BundleUpdateInput): Bundle
-    updateFeed(data:FeedUpdateInput): Feed
+    updateFeed(data: FeedUpdateInput): Feed
+    createSavedArticle(data: SavedArticleCreateInput): SavedArticle
   }
 `;
