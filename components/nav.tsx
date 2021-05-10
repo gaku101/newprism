@@ -2,7 +2,6 @@ import Link from "next/link";
 import { useFetchUser } from "../utils/user";
 export const Nav = () => {
   const { user, loading } = useFetchUser();
-  console.log(user, loading);
   return (
     <ul className="grid grid-cols-4">
       <div className="col-span-1 flex justify-start">
