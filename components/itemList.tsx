@@ -24,7 +24,8 @@ export const ItemList = ({
   useSelected?: boolean;
   allowEdits?: boolean;
 }) => {
-  const isFeed = type === ItemType.FeedType;
+  // propで受け取ったtypeがFeedTypeか判定
+  const isFeed = type === ItemType.FeedType; 
   const { loading, error, data } = useQuery(
     isFeed ? FEEDS_QUERY : BUNDLES_QUERY
   );
@@ -33,8 +34,10 @@ export const ItemList = ({
 
   useEffect(() => {
     (async () => {
+      // useSelectedがtrueでitemListが存在していて選択されたfeedがなければ
       if (useSelected && itemList && itemList.length && selected.id == null) {
         const firstItem = itemList[0];
+        // stateのselectedをfirstItemで更新
         await setSelected({
           id: firstItem.id,
           feeds: isFeed ? [firstItem] : firstItem["feeds"],

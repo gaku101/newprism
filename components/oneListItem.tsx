@@ -27,6 +27,7 @@ export const OneListItem = ({
   allowEdits?: boolean;
 }) => {
   const isFeed = type === ItemType.FeedType;
+  // 選択されたfeedがあるかどうかの真偽値
   const isSelected = useSelected && selected && selected.id === item.id;
   return (
     <Link href={`${isFeed ? "feed" : "bundle"}/${item.id}`}>
