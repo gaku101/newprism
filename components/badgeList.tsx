@@ -18,7 +18,7 @@ export const BadgeList = ({
   item: FeedObject | BundleObject;
   setItem?: Dispatch<SetStateAction<FeedObject | BundleObject>>;
 }) => {
-  return item[fieldName].length ? (
+  return item[fieldName] && item[fieldName].length ? (
     <>
       {item[fieldName].map((oneBadge) => (
         <OneBadge
