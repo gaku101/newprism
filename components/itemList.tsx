@@ -50,7 +50,7 @@ export const ItemList = ({
   if (loading) {
     return <NotifyLoading />;
   }
-  if (error) {
+  if (error || !itemList) {
     return <NotifyError />;
   }
   return (
