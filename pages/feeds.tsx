@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { GenerateArticleList } from "../components/generateArticleList";
 import { ItemList } from "../components/itemList";
 import { Layout } from "../components/layout";
 import { NewEditItem } from "../components/newEditItem";
@@ -70,6 +71,11 @@ const FeedsPage = () => {
         selected={selected}
         setSelected={setSelected}
       />
+      {selected.feeds.length ? (
+        <GenerateArticleList feeds={selected.feeds} />
+      ) : (
+        <h3>No Bundle Selected</h3>
+      )}
     </Layout>
   );
 };
