@@ -105,7 +105,6 @@ export const NewEditItem = ({
           selected.editMode
             ? updateItemMutation({
                 variables: { data },
-                update: updateCache(isFeed, "update"),
                 optimisticResponse: optimisticCache(
                   isFeed,
                   "update",
