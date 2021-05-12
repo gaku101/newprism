@@ -14,6 +14,7 @@ import { ItemEdit } from "./itemEdit";
 import { ProfilePic } from "./profilePic";
 import { DoubleArrowDown, DoubleArrowRight, WaitingClock } from "./svg";
 import * as _ from "lodash";
+import { ItemDelete } from "./itemDelete";
 
 export const OneListItem = ({
   item,
@@ -72,6 +73,12 @@ export const OneListItem = ({
                 type={type}
                 selected={selected}
                 setSelected={setSelected}
+              />
+            ) : null}
+            {canManipulate ? (
+              <ItemDelete
+                item={item}
+                type={type}
               />
             ) : null}
           </div>
