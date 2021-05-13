@@ -149,7 +149,6 @@ export const typeDefs = gql`
     url: String
   }
   input SavedArticleCreateInput {
-    id: String
     feed: NestedFeedCreateInput
     content: JSON
     url: String

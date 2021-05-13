@@ -8,7 +8,6 @@ import { ME_QUERY, SAVED_ARTICLE_QUERY } from "../utils/api/graphql/queries";
 import { useFetchUser } from "../utils/user";
 import { HeartOutline, SingleArrorRight } from "./svg";
 import * as _ from "lodash";
-import { v4 as uuidv4 } from "uuid";
 import { updateSavedArticleCache } from "../utils/update";
 
 export const OneArticle = ({ article, feed }: { article; feed: Feed }) => {
@@ -58,7 +57,6 @@ export const OneArticle = ({ article, feed }: { article; feed: Feed }) => {
             } else {
               const newSavedArticle = {
                 data: {
-                  id: uuidv4(),
                   url: article.link,
                   content: article,
                   feed: {

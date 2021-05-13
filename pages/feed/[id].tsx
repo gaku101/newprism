@@ -45,9 +45,9 @@ const Feed = ({ id }) => {
         ) : (
           <p>None are present.Why not add one?</p>
         )}
-        <GenerateArticleList feeds={[feed]} />
       </div>
-    </Layout>
+      <GenerateArticleList feeds={[feed]} />
+ƒ    </Layout>
   );
 };
 
