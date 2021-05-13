@@ -157,7 +157,7 @@ export const typeDefs = gql`
   input NestedFeedCreateInput {
     connect: FeedWhereUniqueInput
   }
-  input DeleteSavedArticleInpur {
+  input DeleteSavedArticleInput {
     id: String
   }
   type Query {
@@ -183,6 +183,6 @@ export const typeDefs = gql`
     createSavedArticle(data: SavedArticleCreateInput): SavedArticle
     deleteBundle(data: BundleInput): Bundle
     deleteFeed(data: FeedInput): Feed
-    deleteSavedArticle(data: DeleteSavedArticleInpur): SavedArticle
+    deleteSavedArticle(data: DeleteSavedArticleInput): SavedArticle
   }
 `;

@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import Pagination from 'react-js-pagination';
+import { useState } from "react";
+import Pagination from "react-js-pagination";
+import { OneArticle } from "./oneArticle";
 
 export const ArticleList = ({ articleList }) => {
   const [currentPagination, setPagination] = useState({
@@ -12,20 +13,15 @@ export const ArticleList = ({ articleList }) => {
   const indexOfFirstArticle = indexOfLastArticle - articlesPerPage;
   const currentArticles = articleList.slice(
     indexOfFirstArticle,
-    indexOfLastArticle,
+    indexOfLastArticle
   );
-  console.log('currentPagination',currentPagination)
-  console.log('indexOfLastArticle',indexOfLastArticle)
-  console.log('indexOfFirstArticle',indexOfFirstArticle)
-  console.log('currentArticles',currentArticles)
-  console.log('articleList',articleList)
 
   return (
     <>
       <h3 className="py-4 font-medium text-lg">Articles</h3>
       <div className="grid grid-cols-1 gap-4">
-      {currentArticles.map(({ feed, ...oneArticle }, index) => (
-          <p key={oneArticle.title + index}>{oneArticle.title}</p>
+        {currentArticles.map(({ feed, ...oneArticle }, index) => (
+          <OneArticle article={oneArticle} feed={feed} key={oneArticle.title} />
         ))}
         <Pagination
           innerClass="rounded py-2 px-2 flex"

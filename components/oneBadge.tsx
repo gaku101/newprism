@@ -28,7 +28,7 @@ export const OneBadge = ({
       ? "green"
       : "purple";
   return (
-    <div className="inline-block align-middle">
+    <div className="inline-block align-middle mr-2">
       <span
         className={`flex justify-center text-sm py-2 px-2 rounded-lg bg-${color}-200`}
       >

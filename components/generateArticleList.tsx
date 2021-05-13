@@ -41,6 +41,5 @@ export const GenerateArticleList = ({ feeds }: { feeds: Feed[] }) => {
   if (error) {
     return <NotifyError />;
   }
-  console.log(data);
   return <ArticleList articleList={data} />;
 };
