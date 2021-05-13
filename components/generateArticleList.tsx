@@ -4,6 +4,7 @@ import Parser from "rss-parser";
 import * as _ from "lodash";
 import { NotifyLoading } from "./notifyLoading";
 import { NotifyError } from "./notifyError";
+import { ArticleList } from "./articleList";
 const parser = new Parser();
 
 const CORS_PROXY = "http://localhost:3000/api/cors?";
@@ -41,5 +42,5 @@ export const GenerateArticleList = ({ feeds }: { feeds: Feed[] }) => {
     return <NotifyError />;
   }
   console.log(data);
-  return <p>Generate Article List</p>;
+  return <ArticleList articleList={data} />;
 };
