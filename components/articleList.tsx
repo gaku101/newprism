@@ -21,7 +21,11 @@ export const ArticleList = ({ articleList }) => {
       <h3 className="py-4 font-medium text-lg">Articles</h3>
       <div className="grid grid-cols-1 gap-4">
         {currentArticles.map(({ feed, ...oneArticle }, index) => (
-          <OneArticle article={oneArticle} feed={feed} key={oneArticle.title} />
+          <OneArticle
+            article={oneArticle}
+            feed={feed}
+            key={oneArticle.title + index}
+          />
         ))}
         <Pagination
           innerClass="rounded py-2 px-2 flex"
